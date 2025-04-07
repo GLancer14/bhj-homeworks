@@ -4,10 +4,8 @@ const timeOptions = {
   minute: "2-digit",
   second: "2-digit",
 };
-let currentTimerValue = new Date(2025, 0, 1, 0, 0, 15);
-setTime();
-let intervalId = setInterval(setTime, 1000);
-function setTime() {
+let currentTimerValue = new Date(2025, 0, 1, ...currentTimerElement.textContent.split(":"));
+const intervalId = setInterval(() => {
   currentTimerValue = new Date(currentTimerValue.setSeconds(currentTimerValue.getSeconds() - 1));
   currentTimerElement.textContent = Intl.DateTimeFormat("ru", timeOptions).format(currentTimerValue);
   if (currentTimerValue.getSeconds() === 0 && currentTimerValue.getMinutes() === 0 && currentTimerValue.getHours() === 0) {
@@ -15,4 +13,4 @@ function setTime() {
     alert("Вы победили в конкурсе!");
     document.getElementById("file-download").click();
   }
-}
+}, 1000);
