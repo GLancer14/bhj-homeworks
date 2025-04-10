@@ -4,6 +4,8 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timerElement = container.querySelector('.status__timer');
+    this.timerIntervalId = 0;
 
     this.reset();
 
@@ -53,6 +55,7 @@ class Game {
 
   setNewWord() {
     const word = this.getWord();
+    this.setTimer(word);
 
     this.renderWord(word);
   }
@@ -86,6 +89,21 @@ class Game {
     this.wordElement.innerHTML = html;
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
+  }
+
+  setTimer(word) {
+    clearInterval(this.timerIntervalId);
+    let initialTime = Number(word.length);
+    this.timerElement.textContent = initialTime;
+    const intervalId = setInterval(() => {
+      initialTime--;
+      this.timerElement.textContent = initialTime;
+      if (initialTime === 0) {
+        clearInterval(intervalId);
+        this.fail();
+      }
+    }, 1000);
+    this.timerIntervalId = intervalId;
   }
 }
 
