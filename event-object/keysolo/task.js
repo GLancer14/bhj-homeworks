@@ -93,17 +93,16 @@ class Game {
 
   setTimer(word) {
     clearInterval(this.timerIntervalId);
-    let initialTime = Number(word.length);
+    let initialTime = word.length;
     this.timerElement.textContent = initialTime;
-    const intervalId = setInterval(() => {
+    this.timerIntervalId = setInterval(() => {
       initialTime--;
       this.timerElement.textContent = initialTime;
       if (initialTime === 0) {
-        clearInterval(intervalId);
+        clearInterval(this.timerIntervalId);
         this.fail();
       }
     }, 1000);
-    this.timerIntervalId = intervalId;
   }
 }
 
