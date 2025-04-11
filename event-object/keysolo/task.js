@@ -67,12 +67,11 @@ class Game {
         'netology',
         'hello',
         'kitty',
-        'rock',
-        'youtube',
-        'popcorn',
-        'cinema',
-        'love',
-        'javascript'
+        'javascript',
+        'я люблю kitkat',
+        'nike это бренд',
+        'победа',
+        'поражение',
       ],
       index = Math.floor(Math.random() * words.length);
 
