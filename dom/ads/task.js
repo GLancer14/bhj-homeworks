@@ -1,13 +1,13 @@
 const rotatorCasesElements = document.querySelectorAll(".rotator__case");
 const setIterator = function(elementsCollection) {
-  let currentRotatorIndex = 0;
-  let previousRotatorIndex = elementsCollection.length - 1;
+  let currentCaseIndex = 0;
+  let previousCaseIndex = elementsCollection.length - 1;
   return function() {
     setInterval(() => {
-      currentRotatorIndex = (currentRotatorIndex === elementsCollection.length - 1) ? 0 : currentRotatorIndex + 1;
-      previousRotatorIndex = (previousRotatorIndex === elementsCollection.length - 1) ? 0 : previousRotatorIndex + 1;
-      elementsCollection[currentRotatorIndex].classList.add("rotator__case_active");
-      elementsCollection[previousRotatorIndex].classList.remove("rotator__case_active");
+      currentCaseIndex = (currentCaseIndex === elementsCollection.length - 1) ? 0 : currentCaseIndex + 1;
+      previousCaseIndex = (previousCaseIndex === elementsCollection.length - 1) ? 0 : previousCaseIndex + 1;
+      elementsCollection[currentCaseIndex].classList.add("rotator__case_active");
+      elementsCollection[previousCaseIndex].classList.remove("rotator__case_active");
     }, 1000);
   }
 };
