@@ -3,6 +3,8 @@
 }
 
 .has-tooltip {
+  position: relative;
+
   color: #000;
   background: yellow;
 }
@@ -12,7 +14,7 @@
 }
 
 .tooltip {
-  position: fixed;
+  position: absolute;
   display: none;
   background: black;
   padding: 5px;
