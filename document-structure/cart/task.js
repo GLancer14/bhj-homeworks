@@ -3,10 +3,22 @@ const incProductElements = document.querySelectorAll(".product__quantity-control
 const toCartElements = document.querySelectorAll(".product__add");
 const cartProductsWrapperElement = document.querySelector(".cart__products");
 document.addEventListener("DOMContentLoaded", () => {
-  cartProductsWrapperElement.innerHTML = window.localStorage.getItem("cart__products");
-  const cartProductDeleteButtons = cartProductsWrapperElement.querySelectorAll(".cart__delete");
-  cartProductDeleteButtons.forEach(item => item.addEventListener("click", deleteCartProduct));
-  changeCartVisibility();
+  const cartStorage = window.localStorage.getItem("cart__products");
+  if (cartStorage) {
+    const cartProductsArray = JSON.parse(cartStorage);
+    cartProductsWrapperElement.innerHTML = cartProductsArray.reduce((acc, item) => {
+      return acc += `
+        <div class="cart__product" data-id="${item.id}">
+          <img class="cart__product-image" src="${item.imageSrc}">
+          <div class="cart__product-count">${item.count}</div>
+          <div class="cart__delete">&times;</div>
+        </div>
+      `;
+    }, "");
+    const cartProductDeleteButtons = cartProductsWrapperElement.querySelectorAll(".cart__delete");
+    cartProductDeleteButtons.forEach(item => item.addEventListener("click", deleteCartProduct));
+    changeCartVisibility();
+  }
 });
 decProductElements.forEach(item => {
   item.addEventListener("click", function (e) {
@@ -77,5 +89,12 @@ function createProductImageCopy(productElement) {
 }
 
 function setCartStorage() {
-  window.localStorage.setItem("cart__products", cartProductsWrapperElement.innerHTML);
+  const cartProductsArray = Array.from(document.querySelectorAll(".cart__product")).map(item => {
+    return {
+      id: item.dataset.id,
+      imageSrc: item.querySelector(".cart__product-image").src,
+      count: item.querySelector(".cart__product-count").textContent,
+    };
+  });
+  window.localStorage.setItem("cart__products", JSON.stringify(cartProductsArray));
 }
