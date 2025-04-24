@@ -13,20 +13,12 @@ function submitForm(e) {
   if (taskInput.value.trim()) {
     const taskElement = document.createElement("div");
     taskElement.classList.add("task");
+    taskElement.innerHTML = `
+      <div class="task__title">${taskInput.value}</div>
+      <a class="task__remove" href="#">&times;</a>
+    `;
     taskList.appendChild(taskElement);
-
-    const taskTitle = document.createElement("div");
-    taskTitle.classList.add("task__title");
-    taskTitle.textContent = taskInput.value;
-    taskElement.appendChild(taskTitle);
-
-    const dropTaskElement = document.createElement("a");
-    dropTaskElement.classList.add("task__remove");
-    dropTaskElement.setAttribute("href", "#");
-    dropTaskElement.innerHTML = "&times;";
-    taskElement.appendChild(dropTaskElement);
-    dropTaskElement.addEventListener("click", dropTask);
-
+    taskElement.querySelector(".task__remove").addEventListener("click", dropTask);
     setTasksStorage();
   }
 
