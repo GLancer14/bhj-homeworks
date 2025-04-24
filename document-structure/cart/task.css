@@ -1,6 +1,11 @@
 body {
   font-family: Arial;
 }
+
+.cart__hide {
+  display: none;
+}
+
 .cart__products {
   display: flex;
   justify-content: center;
@@ -13,7 +18,7 @@ body {
 .cart__product-count {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   border: 2px solid green;
   border-radius: 50%;
   padding: 2px 5px;
@@ -26,7 +31,22 @@ body {
   height: 100px;
   object-fit: contain;
 }
+
+.cart__delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  padding: 2px 5px;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
 .product {
+  position: relative;
+
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -38,7 +58,18 @@ body {
 
 .product__image {
   width: 100px;
+  height: 100px;
   object-fit: contain;
+}
+
+.product__image-cloned {
+  position: absolute;
+
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+
+  transition: all 0.5s linear;
 }
 
 .product__quantity-title {
