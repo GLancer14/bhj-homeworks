@@ -2,17 +2,20 @@ const taskForm = document.getElementById("tasks__form");
 const taskInput = document.getElementById("task__input");
 const taskList = document.getElementById("tasks__list");
 document.addEventListener("DOMContentLoaded", () => {
-  const tasksArray = JSON.parse(window.localStorage.getItem("tasks"));
-  taskList.innerHTML = tasksArray.reduce((acc, item) => {
-    return acc += `
-      <div class="task">
-        <div class="task__title">${item}</div>
-        <a class="task__remove" href="#">&times;</a>
-      </div>
-    `;
-  }, "");
-  const taskRemoveButtons = document.querySelectorAll(".task__remove");
-  taskRemoveButtons.forEach(item => item.addEventListener("click", dropTask));
+  const taskStorage = window.localStorage.getItem("tasks");
+  if (taskStorage) {
+    const tasksArray = JSON.parse(taskStorage);
+    taskList.innerHTML = tasksArray.reduce((acc, item) => {
+      return acc += `
+        <div class="task">
+          <div class="task__title">${item}</div>
+          <a class="task__remove" href="#">&times;</a>
+        </div>
+      `;
+    }, "");
+    const taskRemoveButtons = document.querySelectorAll(".task__remove");
+    taskRemoveButtons.forEach(item => item.addEventListener("click", dropTask));
+  }
 });
 taskForm.addEventListener("submit", submitForm);
 
