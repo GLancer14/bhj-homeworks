@@ -2,7 +2,15 @@ const taskForm = document.getElementById("tasks__form");
 const taskInput = document.getElementById("task__input");
 const taskList = document.getElementById("tasks__list");
 document.addEventListener("DOMContentLoaded", () => {
-  taskList.innerHTML = window.localStorage.getItem("tasks");
+  const tasksArray = JSON.parse(window.localStorage.getItem("tasks"));
+  taskList.innerHTML = tasksArray.reduce((acc, item) => {
+    return acc += `
+      <div class="task">
+        <div class="task__title">${item}</div>
+        <a class="task__remove" href="#">&times;</a>
+      </div>
+    `;
+  }, "");
   const taskRemoveButtons = document.querySelectorAll(".task__remove");
   taskRemoveButtons.forEach(item => item.addEventListener("click", dropTask));
 });
@@ -32,5 +40,6 @@ function dropTask(e) {
 }
 
 function setTasksStorage() {
-  window.localStorage.setItem("tasks", taskList.innerHTML);
+  const taskTitles = JSON.stringify(Array.from(document.querySelectorAll(".task__title")).map(item => item.textContent));
+  window.localStorage.setItem("tasks", taskTitles);
 }
