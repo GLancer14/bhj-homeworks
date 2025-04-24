@@ -11,7 +11,7 @@ anchors.forEach((item, index) => {
     tooltip.classList.toggle("tooltip_active");
     switch (tooltip.dataset.position) {
       case "top":
-        [tooltip.style.left, tooltip.style.top] = [0, `${0 - tooltip.offsetHeight}px`];
+        [tooltip.style.left, tooltip.style.bottom] = [0, `${item.offsetHeight}px`];
         break;
       case "left":
         [tooltip.style.right, tooltip.style.top] = [`${item.offsetWidth}px`, 0];
