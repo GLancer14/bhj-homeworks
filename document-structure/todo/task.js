@@ -1,11 +1,6 @@
 const taskForm = document.getElementById("tasks__form");
 const taskInput = document.getElementById("task__input");
 const taskList = document.getElementById("tasks__list");
-document.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    submitForm(e);
-  }
-});
 document.addEventListener("DOMContentLoaded", () => {
   taskList.innerHTML = window.localStorage.getItem("tasks");
   const taskRemoveButtons = document.querySelectorAll(".task__remove");
@@ -15,7 +10,7 @@ taskForm.addEventListener("submit", submitForm);
 
 function submitForm(e) {
   e.preventDefault();
-  if (taskInput.value) {
+  if (taskInput.value.trim()) {
     const taskElement = document.createElement("div");
     taskElement.classList.add("task");
     taskList.appendChild(taskElement);
@@ -34,6 +29,8 @@ function submitForm(e) {
 
     setTasksStorage();
   }
+
+  e.currentTarget.reset();
 }
 
 function dropTask(e) {
