@@ -14,7 +14,7 @@ anchors.forEach((item, index) => {
         [tooltip.style.left, tooltip.style.top] = [0, `${0 - tooltip.offsetHeight}px`];
         break;
       case "left":
-        [tooltip.style.left, tooltip.style.top] = [`${0 - tooltip.offsetWidth}px`, 0];
+        [tooltip.style.right, tooltip.style.top] = [`${item.offsetWidth}px`, 0];
         break;
       case "right":
         [tooltip.style.left, tooltip.style.top] = [`${item.offsetWidth}px`, 0];
