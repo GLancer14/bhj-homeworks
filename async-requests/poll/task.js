@@ -21,6 +21,19 @@ function createPollElements(pollData) {
   pollAnswers.addEventListener("click", e => {
     if (e.target.classList.contains("poll__answer")) {
       alert("Спасибо, ваш голос засчитан!");
+      getPollResult(pollData.id, [...e.target.parentElement.children].indexOf(e.target));
     }
   });
+}
+
+function getPollResult(pollId, answerId) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/poll");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === this.DONE) {
+      console.log(this.responseText);
+    }
+  });
+  xhr.send(`vote=${pollId}&answer=${answerId}`);
 }
