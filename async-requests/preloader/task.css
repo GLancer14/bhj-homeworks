@@ -13,10 +13,26 @@ body {
   margin-right: 5px;
 }
 
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: black;
+  opacity: 0.5;
+}
+
+.loader-wrapper_active {
+  display: flex;
+}
+
 .loader {
   width: 100px;
-  display: none;
-}
-.loader_active {
   display: block;
 }
