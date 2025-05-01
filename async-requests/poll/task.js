@@ -11,13 +11,10 @@ xhr.send();
 function createPollElements(pollData) {
   const pollTitle = document.getElementById("poll__title");
   const pollAnswers = document.getElementById("poll__answers");
-  let pollAnswersButtons = "";
+  pollAnswers.innerHTML = pollData.data.answers.reduce((acc, item) => {
+    return acc += `<button class="poll__answer">${item}</button>`
+  }, "");
   pollTitle.textContent = pollData.data.title;
-  for (const pollAnswer of pollData.data.answers) {
-    pollAnswersButtons += `<button class="poll__answer">${pollAnswer}</button>`;
-  }
-
-  pollAnswers.innerHTML = pollAnswersButtons;
   pollAnswers.addEventListener("click", e => {
     if (e.target.classList.contains("poll__answer")) {
       alert("Спасибо, ваш голос засчитан!");
@@ -31,9 +28,18 @@ function getPollResult(pollId, answerId) {
   xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/poll");
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === this.DONE) {
-      console.log(this.responseText);
+    if (this.readyState === this.DONE && this.status.toString().startsWith("2")) {
+      const pollResult = JSON.parse(this.responseText).stat;
+      createPollResultElements(pollResult);
     }
   });
   xhr.send(`vote=${pollId}&answer=${answerId}`);
+}
+
+function createPollResultElements(pollResultData) {
+  const pollAnswers = document.getElementById("poll__answers");
+  let votesSum = pollResultData.reduce((acc, item) => acc += item.votes, 0);
+  pollAnswers.innerHTML = pollResultData.reduce((acc, item) => {
+    return acc += `<div class="poll__answer-stat">${item.answer}: <b>${(item.votes / votesSum * 100).toFixed(2)}%</b></div>`
+  }, "");
 }
