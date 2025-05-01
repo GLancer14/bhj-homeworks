@@ -28,7 +28,7 @@ function getPollResult(pollId, answerId) {
   xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/poll");
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === this.DONE && this.status.toString().startsWith("2")) {
+    if (this.readyState === this.DONE && this.status === 201) {
       const pollResult = JSON.parse(this.responseText).stat;
       createPollResultElements(pollResult);
     }
