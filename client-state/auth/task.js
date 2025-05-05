@@ -1,5 +1,6 @@
 const formWrapper = document.getElementById("signin");
 const form = document.getElementById("signin__form");
+const userIdElement = document.getElementById("user_id");
 const welcome = document.getElementById("welcome");
 const signoutButton = document.querySelector(".signout-button");
 form.addEventListener("submit", function (e) {
@@ -41,13 +42,13 @@ function signinFromStorage() {
 function showWelcome(userId) {
   formWrapper.classList.remove("signin_active");
   welcome.classList.add("welcome_active");
-  document.getElementById("user_id").textContent = userId;
+  userIdElement.textContent = userId;
 }
 
 function signout() {
   formWrapper.classList.add("signin_active");
   welcome.classList.remove("welcome_active");
-  document.getElementById("user_id").textContent = "";
+  userIdElement.textContent = "";
   window.localStorage.removeItem("user_id");
   alert("Вы вышли из своей учётной записи.");
 }

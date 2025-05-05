@@ -5,5 +5,5 @@ modalCloseButton.addEventListener("click", function () {
   subscribeModal.classList.remove("modal_active");
 });
 document.addEventListener("DOMContentLoaded", function () {
-  document.cookie.includes("modal=closed") ? subscribeModal.classList.remove("modal_active") : subscribeModal.classList.add("modal_active")
+  document.cookie.includes("modal=closed") ? subscribeModal.classList.remove("modal_active") : subscribeModal.classList.add("modal_active");
 });
