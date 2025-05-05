@@ -4,9 +4,8 @@ const welcome = document.getElementById("welcome");
 const signoutButton = document.querySelector(".signout-button");
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  const formObject = new FormData(e.currentTarget);
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/auth");
+  const targetForm = e.currentTarget;
+  const xhr = createAsyncRequest("POST", targetForm.action, targetForm);
   xhr.addEventListener("readystatechange", function () {
     if (this.readyState === this.DONE && this.status === 201) {
       const response = JSON.parse(this.responseText);
@@ -18,13 +17,19 @@ form.addEventListener("submit", function (e) {
       }
     }
 
-    form.reset();
+    targetForm.reset();
   });
-  xhr.send(formObject);
 });
-
 signoutButton.addEventListener("click", signout);
 document.addEventListener("DOMContentLoaded", signinFromStorage);
+
+function createAsyncRequest(method, url, formElement) {
+  const formObject = new FormData(formElement);
+  const xhr = new XMLHttpRequest();
+  xhr.open(method, url);
+  xhr.send(formObject);
+  return xhr;
+}
 
 function signinFromStorage() {
   const userData = window.localStorage.getItem("user_id");
